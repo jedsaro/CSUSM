@@ -1,4 +1,4 @@
-// Generated from c:\Users\Jedsa\Desktop\Projects\CSUSM\CS351\Project2\turtle.g4 by ANTLR 4.8
+// Generated from c:\Users\Jedsa\Desktop\Projects\CSUSM\CS351\Project2\G01.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class turtleParser extends Parser {
+public class G01Parser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.8", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -72,7 +72,7 @@ public class turtleParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "turtle.g4"; }
+	public String getGrammarFileName() { return "G01.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -83,7 +83,7 @@ public class turtleParser extends Parser {
 	@Override
 	public ATN getATN() { return _ATN; }
 
-	public turtleParser(TokenStream input) {
+	public G01Parser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
@@ -147,18 +147,18 @@ public class turtleParser extends Parser {
 	public static class PrintlineExprContext extends ExprContext {
 		public Token x_cord;
 		public Token y_cord;
-		public List<TerminalNode> NUMBER() { return getTokens(turtleParser.NUMBER); }
+		public List<TerminalNode> NUMBER() { return getTokens(G01Parser.NUMBER); }
 		public TerminalNode NUMBER(int i) {
-			return getToken(turtleParser.NUMBER, i);
+			return getToken(G01Parser.NUMBER, i);
 		}
 		public PrintlineExprContext(ExprContext ctx) { copyFrom(ctx); }
 	}
 	public static class DrawlineExprContext extends ExprContext {
 		public Token x_cord;
 		public Token y_cord;
-		public List<TerminalNode> NUMBER() { return getTokens(turtleParser.NUMBER); }
+		public List<TerminalNode> NUMBER() { return getTokens(G01Parser.NUMBER); }
 		public TerminalNode NUMBER(int i) {
-			return getToken(turtleParser.NUMBER, i);
+			return getToken(G01Parser.NUMBER, i);
 		}
 		public DrawlineExprContext(ExprContext ctx) { copyFrom(ctx); }
 	}

@@ -9,12 +9,11 @@ def main():
     token_stream = CommonTokenStream(lexer)
     parser = turtleParser(token_stream)
     visitor = turtleVisitor()
-
    
     while True: 
         tree = parser.start()
         if tree.expr() == None:
-            break
+          break
         print(tree.toStringTree(recog=parser))
         visitor.visit(tree)
 

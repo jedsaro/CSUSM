@@ -1,4 +1,4 @@
-// Generated from c:\Users\Jedsa\Desktop\Projects\CSUSM\CS351\Project2\turtle.g4 by ANTLR 4.8
+// Generated from c:\Users\Jedsa\Desktop\Projects\CSUSM\CS351\Project2\G01.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class turtleLexer extends Lexer {
+public class turLexer extends Lexer {
 	static { RuntimeMetaData.checkVersion("4.8", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -78,13 +78,13 @@ public class turtleLexer extends Lexer {
 	}
 
 
-	public turtleLexer(CharStream input) {
+	public turLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@Override
-	public String getGrammarFileName() { return "turtle.g4"; }
+	public String getGrammarFileName() { return "G01.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

@@ -31,7 +31,7 @@ class turtleParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'turtle'", "'print'" ]
+    literalNames = [ "<INVALID>", "'G01'", "'print'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "NUMBER", "WS" ]
 
