@@ -1,4 +1,4 @@
-// Generated from c:\Users\Jedsa\Desktop\Projects\Project2\turtle.g4 by ANTLR 4.8
+// Generated from c:\Users\Jedsa\Desktop\Projects\CSUSM\CS351\Project2\turtle.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
