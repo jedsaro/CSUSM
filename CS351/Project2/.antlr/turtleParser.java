@@ -16,7 +16,7 @@ public class turtleParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, NUMBER=3, WS=4;
+		T__0=1, T__1=2, T__2=3, T__3=4, NUMBER=5, WS=6;
 	public static final int
 		RULE_start = 0, RULE_expr = 1;
 	private static String[] makeRuleNames() {
@@ -28,13 +28,13 @@ public class turtleParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'G01'", "'print'"
+			null, "'G01'", "'G02'", "'G28'", "'print'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, "NUMBER", "WS"
+			null, null, null, null, null, "NUMBER", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -107,6 +107,8 @@ public class turtleParser extends Parser {
 			switch (_input.LA(1)) {
 			case T__0:
 			case T__1:
+			case T__2:
+			case T__3:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(4);
@@ -144,54 +146,89 @@ public class turtleParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class PrintlineExprContext extends ExprContext {
+	public static class ReturnHomeContext extends ExprContext {
 		public Token x_cord;
-		public Token y_cord;
 		public List<TerminalNode> NUMBER() { return getTokens(turtleParser.NUMBER); }
 		public TerminalNode NUMBER(int i) {
 			return getToken(turtleParser.NUMBER, i);
 		}
-		public PrintlineExprContext(ExprContext ctx) { copyFrom(ctx); }
+		public ReturnHomeContext(ExprContext ctx) { copyFrom(ctx); }
 	}
-	public static class DrawlineExprContext extends ExprContext {
+	public static class DrawCircleContext extends ExprContext {
+		public Token radius;
+		public TerminalNode NUMBER() { return getToken(turtleParser.NUMBER, 0); }
+		public DrawCircleContext(ExprContext ctx) { copyFrom(ctx); }
+	}
+	public static class DrawLineContext extends ExprContext {
 		public Token x_cord;
 		public Token y_cord;
 		public List<TerminalNode> NUMBER() { return getTokens(turtleParser.NUMBER); }
 		public TerminalNode NUMBER(int i) {
 			return getToken(turtleParser.NUMBER, i);
 		}
-		public DrawlineExprContext(ExprContext ctx) { copyFrom(ctx); }
+		public DrawLineContext(ExprContext ctx) { copyFrom(ctx); }
+	}
+	public static class PrintValuesContext extends ExprContext {
+		public Token x_cord;
+		public Token y_cord;
+		public List<TerminalNode> NUMBER() { return getTokens(turtleParser.NUMBER); }
+		public TerminalNode NUMBER(int i) {
+			return getToken(turtleParser.NUMBER, i);
+		}
+		public PrintValuesContext(ExprContext ctx) { copyFrom(ctx); }
 	}
 
 	public final ExprContext expr() throws RecognitionException {
 		ExprContext _localctx = new ExprContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_expr);
 		try {
-			setState(14);
+			setState(19);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__0:
-				_localctx = new DrawlineExprContext(_localctx);
+				_localctx = new DrawLineContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(8);
 				match(T__0);
 				setState(9);
-				((DrawlineExprContext)_localctx).x_cord = match(NUMBER);
+				((DrawLineContext)_localctx).x_cord = match(NUMBER);
 				setState(10);
-				((DrawlineExprContext)_localctx).y_cord = match(NUMBER);
+				((DrawLineContext)_localctx).y_cord = match(NUMBER);
 				}
 				break;
 			case T__1:
-				_localctx = new PrintlineExprContext(_localctx);
+				_localctx = new DrawCircleContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(11);
 				match(T__1);
 				setState(12);
-				((PrintlineExprContext)_localctx).x_cord = match(NUMBER);
+				((DrawCircleContext)_localctx).radius = match(NUMBER);
+				}
+				break;
+			case T__2:
+				_localctx = new ReturnHomeContext(_localctx);
+				enterOuterAlt(_localctx, 3);
+				{
 				setState(13);
-				((PrintlineExprContext)_localctx).y_cord = match(NUMBER);
+				match(T__2);
+				setState(14);
+				((ReturnHomeContext)_localctx).x_cord = match(NUMBER);
+				setState(15);
+				((ReturnHomeContext)_localctx).x_cord = match(NUMBER);
+				}
+				break;
+			case T__3:
+				_localctx = new PrintValuesContext(_localctx);
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(16);
+				match(T__3);
+				setState(17);
+				((PrintValuesContext)_localctx).x_cord = match(NUMBER);
+				setState(18);
+				((PrintValuesContext)_localctx).y_cord = match(NUMBER);
 				}
 				break;
 			default:
@@ -210,12 +247,13 @@ public class turtleParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\6\23\4\2\t\2\4\3"+
-		"\t\3\3\2\3\2\5\2\t\n\2\3\3\3\3\3\3\3\3\3\3\3\3\5\3\21\n\3\3\3\2\2\4\2"+
-		"\4\2\2\2\22\2\b\3\2\2\2\4\20\3\2\2\2\6\t\5\4\3\2\7\t\3\2\2\2\b\6\3\2\2"+
-		"\2\b\7\3\2\2\2\t\3\3\2\2\2\n\13\7\3\2\2\13\f\7\5\2\2\f\21\7\5\2\2\r\16"+
-		"\7\4\2\2\16\17\7\5\2\2\17\21\7\5\2\2\20\n\3\2\2\2\20\r\3\2\2\2\21\5\3"+
-		"\2\2\2\4\b\20";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\b\30\4\2\t\2\4\3"+
+		"\t\3\3\2\3\2\5\2\t\n\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3"+
+		"\26\n\3\3\3\2\2\4\2\4\2\2\2\31\2\b\3\2\2\2\4\25\3\2\2\2\6\t\5\4\3\2\7"+
+		"\t\3\2\2\2\b\6\3\2\2\2\b\7\3\2\2\2\t\3\3\2\2\2\n\13\7\3\2\2\13\f\7\7\2"+
+		"\2\f\26\7\7\2\2\r\16\7\4\2\2\16\26\7\7\2\2\17\20\7\5\2\2\20\21\7\7\2\2"+
+		"\21\26\7\7\2\2\22\23\7\6\2\2\23\24\7\7\2\2\24\26\7\7\2\2\25\n\3\2\2\2"+
+		"\25\r\3\2\2\2\25\17\3\2\2\2\25\22\3\2\2\2\26\5\3\2\2\2\4\b\25";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -27,20 +27,23 @@ class turtleVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by turtleParser#drawlineExpr.
-    def visitDrawlineExpr(self, ctx:turtleParser.DrawlineExprContext):
-        target_x    = int(ctx.x_cord.text)
-        target_y    = int(ctx.y_cord.text)
-        cur_pos     = tutu.pos()
-        
-        
-
+    # Visit a parse tree produced by turtleParser#drawLine.
+    def visitDrawLine(self, ctx:turtleParser.DrawLineContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by turtleParser#printlineExpr.
-    def visitPrintlineExpr(self, ctx:turtleParser.PrintlineExprContext):
-        print(f"Draw line to x={ctx.x_cord.text} y={ctx.y_cord.text}")
+    # Visit a parse tree produced by turtleParser#drawCircle.
+    def visitDrawCircle(self, ctx:turtleParser.DrawCircleContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by turtleParser#returnHome.
+    def visitReturnHome(self, ctx:turtleParser.ReturnHomeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by turtleParser#printValues.
+    def visitPrintValues(self, ctx:turtleParser.PrintValuesContext):
         return self.visitChildren(ctx)
 
 
