@@ -1,31 +1,17 @@
 # Generated from turtle.g4 by ANTLR 4.9
 from antlr4 import *
-
 if __name__ is not None and "." in __name__:
-  from .turtleParser import turtleParser
+    from .turtleParser import turtleParser
 else:
-  from turtleParser import turtleParser
+    from turtleParser import turtleParser
 
 # This class defines a complete generic visitor for a parse tree produced by turtleParser.
 
-import turtle
+import turtle, math
 from turtle import Screen
-import random as random
 
 tutu = turtle.Turtle()
 screen = Screen()
-
-""" def f(x):
-    match (x):
-      case 0:
-        return 'blue'
-      case 1:
-          return 'white'
-      case 2:
-        return 'red'
-      case _:        
-          return 0
- """
 
 #GUI Settings---------------------------
 
@@ -33,65 +19,75 @@ screen.bgcolor('black')
 screen.screensize(500,500)
 tutu.shape('turtle')
 tutu.pencolor('white')
-tutu.speed(5)
+tutu.speed(7)
 tutu.pensize(2);
 
-
-
 class turtleVisitor(ParseTreeVisitor):
-  
-  # Visit a parse tree produced by turtleParser#start.
-  def visitStart(self, ctx:turtleParser.StartContext):
-    return self.visitChildren(ctx)
+
+    # Visit a parse tree produced by turtleParser#start.
+    def visitStart(self, ctx:turtleParser.StartContext):
+      return self.visitChildren(ctx)
 
 
-  # Visit a parse tree produced by turtleParser#drawLine.
-  def visitDrawLine(self, ctx:turtleParser.DrawLineContext):
-    
-    tutu.pencolor()
-    tutu.pendown()
+    # Visit a parse tree produced by turtleParser#drawLine.
+    def visitDrawLine(self, ctx:turtleParser.DrawLineContext): #G01
+      xcord = float(ctx.x_cord.text)
+      ycord = float(ctx.x_cord.text)
       
-    target = int(ctx.whereto.text)
-    cursor_position = tutu.pos();
-
-    tutu.forward(target)
-
-    
-    return self.visitChildren(ctx)
-
-
-  # Visit a parse tree produced by turtleParser#drawCircle.
-  def visitDrawCircle(self, ctx:turtleParser.DrawCircleContext):
+      c = math.hypot(xcord,ycord)
       
-    radius = int(ctx.radius.text)
-    extent = int(ctx.extent.text)
-        
-    tutu.circle(radius,extent)
-
-    return self.visitChildren(ctx)
-
-
-  # Visit a parse tree produced by turtleParser#returnHome.
-  def visitReturnHome(self, ctx:turtleParser.ReturnHomeContext):
+      tutu.forward(c)
       
-    tutu.penup()
-    tutu.home()
-
-    return self.visitChildren(ctx)
+      return self.visitChildren(ctx)
 
 
-  # Visit a parse tree produced by turtleParser#rotate.
-  def visitRotate(self, ctx:turtleParser.RotateContext):
-    
-    clock = int(ctx.clock.text)
-    tutu.lt(clock)
+    # Visit a parse tree produced by turtleParser#drawCircle.
+    def visitDrawCircle(self, ctx:turtleParser.DrawCircleContext): #G02
       
-    return self.visitChildren(ctx)
+      radius = int(ctx.radius.text)
+      extent = int(ctx.extent.text)
+      
+      tutu.circle(radius,extent)
+
+      return self.visitChildren(ctx)
+
+    # Visit a parse tree produced by turtleParser#returnHome.
+    def visitReturnHome(self, ctx:turtleParser.ReturnHomeContext): #G28
+      
+      tutu.penup()
+      tutu.home()
+      
+      return self.visitChildren(ctx)
 
 
-  # Visit a parse tree produced by turtleParser#printValues.
-  def visitPrintValues(self, ctx:turtleParser.PrintValuesContext):
-    return self.visitChildren(ctx)
+    # Visit a parse tree produced by turtleParser#removepen.
+    def visitRemovepen(self, ctx:turtleParser.RemovepenContext): #M05
+      
+      tutu.penup()
+      
+      return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by turtleParser#addpen.
+    def visitAddpen(self, ctx:turtleParser.AddpenContext): #M03
+      
+      tutu.pendown();
+      
+      return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by turtleParser#rotate.
+    def visitRotate(self, ctx:turtleParser.RotateContext): #G68
+      
+      clock = int(ctx.clock.text)
+      tutu.lt(clock)
+      
+      return self.visitChildren(ctx)
+
+    # Visit a parse tree produced by turtleParser#printValues.
+    def visitPrintValues(self, ctx:turtleParser.PrintValuesContext):
+        return self.visitChildren(ctx)
+
 
 
 del turtleParser

@@ -16,7 +16,7 @@ public class turtleParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, NUMBER=6, WS=7;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, NUMBER=8, WS=9;
 	public static final int
 		RULE_start = 0, RULE_expr = 1;
 	private static String[] makeRuleNames() {
@@ -28,13 +28,13 @@ public class turtleParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'G01'", "'G02'", "'G28'", "'G68'", "'print'"
+			null, "'G01'", "'G02'", "'G28'", "'M05'", "'M03'", "'G68'", "'print'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, "NUMBER", "WS"
+			null, null, null, null, null, null, null, null, "NUMBER", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -110,6 +110,8 @@ public class turtleParser extends Parser {
 			case T__2:
 			case T__3:
 			case T__4:
+			case T__5:
+			case T__6:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(4);
@@ -164,9 +166,16 @@ public class turtleParser extends Parser {
 		}
 		public DrawCircleContext(ExprContext ctx) { copyFrom(ctx); }
 	}
+	public static class RemovepenContext extends ExprContext {
+		public RemovepenContext(ExprContext ctx) { copyFrom(ctx); }
+	}
 	public static class DrawLineContext extends ExprContext {
-		public Token whereto;
-		public TerminalNode NUMBER() { return getToken(turtleParser.NUMBER, 0); }
+		public Token x_cord;
+		public Token y_cord;
+		public List<TerminalNode> NUMBER() { return getTokens(turtleParser.NUMBER); }
+		public TerminalNode NUMBER(int i) {
+			return getToken(turtleParser.NUMBER, i);
+		}
 		public DrawLineContext(ExprContext ctx) { copyFrom(ctx); }
 	}
 	public static class PrintValuesContext extends ExprContext {
@@ -178,12 +187,15 @@ public class turtleParser extends Parser {
 		}
 		public PrintValuesContext(ExprContext ctx) { copyFrom(ctx); }
 	}
+	public static class AddpenContext extends ExprContext {
+		public AddpenContext(ExprContext ctx) { copyFrom(ctx); }
+	}
 
 	public final ExprContext expr() throws RecognitionException {
 		ExprContext _localctx = new ExprContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_expr);
 		try {
-			setState(19);
+			setState(22);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__0:
@@ -193,18 +205,20 @@ public class turtleParser extends Parser {
 				setState(8);
 				match(T__0);
 				setState(9);
-				((DrawLineContext)_localctx).whereto = match(NUMBER);
+				((DrawLineContext)_localctx).x_cord = match(NUMBER);
+				setState(10);
+				((DrawLineContext)_localctx).y_cord = match(NUMBER);
 				}
 				break;
 			case T__1:
 				_localctx = new DrawCircleContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(10);
-				match(T__1);
 				setState(11);
-				((DrawCircleContext)_localctx).radius = match(NUMBER);
+				match(T__1);
 				setState(12);
+				((DrawCircleContext)_localctx).radius = match(NUMBER);
+				setState(13);
 				((DrawCircleContext)_localctx).extent = match(NUMBER);
 				}
 				break;
@@ -212,29 +226,45 @@ public class turtleParser extends Parser {
 				_localctx = new ReturnHomeContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(13);
+				setState(14);
 				match(T__2);
 				}
 				break;
 			case T__3:
-				_localctx = new RotateContext(_localctx);
+				_localctx = new RemovepenContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(14);
-				match(T__3);
 				setState(15);
-				((RotateContext)_localctx).clock = match(NUMBER);
+				match(T__3);
 				}
 				break;
 			case T__4:
-				_localctx = new PrintValuesContext(_localctx);
+				_localctx = new AddpenContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(16);
 				match(T__4);
+				}
+				break;
+			case T__5:
+				_localctx = new RotateContext(_localctx);
+				enterOuterAlt(_localctx, 6);
+				{
 				setState(17);
-				((PrintValuesContext)_localctx).x_cord = match(NUMBER);
+				match(T__5);
 				setState(18);
+				((RotateContext)_localctx).clock = match(NUMBER);
+				}
+				break;
+			case T__6:
+				_localctx = new PrintValuesContext(_localctx);
+				enterOuterAlt(_localctx, 7);
+				{
+				setState(19);
+				match(T__6);
+				setState(20);
+				((PrintValuesContext)_localctx).x_cord = match(NUMBER);
+				setState(21);
 				((PrintValuesContext)_localctx).y_cord = match(NUMBER);
 				}
 				break;
@@ -254,14 +284,15 @@ public class turtleParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\t\30\4\2\t\2\4\3"+
-		"\t\3\3\2\3\2\5\2\t\n\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3"+
-		"\26\n\3\3\3\2\2\4\2\4\2\2\2\32\2\b\3\2\2\2\4\25\3\2\2\2\6\t\5\4\3\2\7"+
-		"\t\3\2\2\2\b\6\3\2\2\2\b\7\3\2\2\2\t\3\3\2\2\2\n\13\7\3\2\2\13\26\7\b"+
-		"\2\2\f\r\7\4\2\2\r\16\7\b\2\2\16\26\7\b\2\2\17\26\7\5\2\2\20\21\7\6\2"+
-		"\2\21\26\7\b\2\2\22\23\7\7\2\2\23\24\7\b\2\2\24\26\7\b\2\2\25\n\3\2\2"+
-		"\2\25\f\3\2\2\2\25\17\3\2\2\2\25\20\3\2\2\2\25\22\3\2\2\2\26\5\3\2\2\2"+
-		"\4\b\25";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13\33\4\2\t\2\4\3"+
+		"\t\3\3\2\3\2\5\2\t\n\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\3\3\3\5\3\31\n\3\3\3\2\2\4\2\4\2\2\2\37\2\b\3\2\2\2\4\30\3\2\2\2\6"+
+		"\t\5\4\3\2\7\t\3\2\2\2\b\6\3\2\2\2\b\7\3\2\2\2\t\3\3\2\2\2\n\13\7\3\2"+
+		"\2\13\f\7\n\2\2\f\31\7\n\2\2\r\16\7\4\2\2\16\17\7\n\2\2\17\31\7\n\2\2"+
+		"\20\31\7\5\2\2\21\31\7\6\2\2\22\31\7\7\2\2\23\24\7\b\2\2\24\31\7\n\2\2"+
+		"\25\26\7\t\2\2\26\27\7\n\2\2\27\31\7\n\2\2\30\n\3\2\2\2\30\r\3\2\2\2\30"+
+		"\20\3\2\2\2\30\21\3\2\2\2\30\22\3\2\2\2\30\23\3\2\2\2\30\25\3\2\2\2\31"+
+		"\5\3\2\2\2\4\b\30";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

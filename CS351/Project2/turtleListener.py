@@ -44,6 +44,24 @@ class turtleListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by turtleParser#removepen.
+    def enterRemovepen(self, ctx:turtleParser.RemovepenContext):
+        pass
+
+    # Exit a parse tree produced by turtleParser#removepen.
+    def exitRemovepen(self, ctx:turtleParser.RemovepenContext):
+        pass
+
+
+    # Enter a parse tree produced by turtleParser#addpen.
+    def enterAddpen(self, ctx:turtleParser.AddpenContext):
+        pass
+
+    # Exit a parse tree produced by turtleParser#addpen.
+    def exitAddpen(self, ctx:turtleParser.AddpenContext):
+        pass
+
+
     # Enter a parse tree produced by turtleParser#rotate.
     def enterRotate(self, ctx:turtleParser.RotateContext):
         pass

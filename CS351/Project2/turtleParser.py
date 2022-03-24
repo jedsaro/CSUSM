@@ -11,16 +11,17 @@ else:
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\t")
-        buf.write("\30\4\2\t\2\4\3\t\3\3\2\3\2\5\2\t\n\2\3\3\3\3\3\3\3\3")
-        buf.write("\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\26\n\3\3\3\2\2\4\2\4")
-        buf.write("\2\2\2\32\2\b\3\2\2\2\4\25\3\2\2\2\6\t\5\4\3\2\7\t\3\2")
-        buf.write("\2\2\b\6\3\2\2\2\b\7\3\2\2\2\t\3\3\2\2\2\n\13\7\3\2\2")
-        buf.write("\13\26\7\b\2\2\f\r\7\4\2\2\r\16\7\b\2\2\16\26\7\b\2\2")
-        buf.write("\17\26\7\5\2\2\20\21\7\6\2\2\21\26\7\b\2\2\22\23\7\7\2")
-        buf.write("\2\23\24\7\b\2\2\24\26\7\b\2\2\25\n\3\2\2\2\25\f\3\2\2")
-        buf.write("\2\25\17\3\2\2\2\25\20\3\2\2\2\25\22\3\2\2\2\26\5\3\2")
-        buf.write("\2\2\4\b\25")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13")
+        buf.write("\33\4\2\t\2\4\3\t\3\3\2\3\2\5\2\t\n\2\3\3\3\3\3\3\3\3")
+        buf.write("\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\31\n\3\3")
+        buf.write("\3\2\2\4\2\4\2\2\2\37\2\b\3\2\2\2\4\30\3\2\2\2\6\t\5\4")
+        buf.write("\3\2\7\t\3\2\2\2\b\6\3\2\2\2\b\7\3\2\2\2\t\3\3\2\2\2\n")
+        buf.write("\13\7\3\2\2\13\f\7\n\2\2\f\31\7\n\2\2\r\16\7\4\2\2\16")
+        buf.write("\17\7\n\2\2\17\31\7\n\2\2\20\31\7\5\2\2\21\31\7\6\2\2")
+        buf.write("\22\31\7\7\2\2\23\24\7\b\2\2\24\31\7\n\2\2\25\26\7\t\2")
+        buf.write("\2\26\27\7\n\2\2\27\31\7\n\2\2\30\n\3\2\2\2\30\r\3\2\2")
+        buf.write("\2\30\20\3\2\2\2\30\21\3\2\2\2\30\22\3\2\2\2\30\23\3\2")
+        buf.write("\2\2\30\25\3\2\2\2\31\5\3\2\2\2\4\b\30")
         return buf.getvalue()
 
 
@@ -34,10 +35,12 @@ class turtleParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'G01'", "'G02'", "'G28'", "'G68'", "'print'" ]
+    literalNames = [ "<INVALID>", "'G01'", "'G02'", "'G28'", "'M05'", "'M03'", 
+                     "'G68'", "'print'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "NUMBER", "WS" ]
+                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
+                      "NUMBER", "WS" ]
 
     RULE_start = 0
     RULE_expr = 1
@@ -50,8 +53,10 @@ class turtleParser ( Parser ):
     T__2=3
     T__3=4
     T__4=5
-    NUMBER=6
-    WS=7
+    T__5=6
+    T__6=7
+    NUMBER=8
+    WS=9
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -100,7 +105,7 @@ class turtleParser ( Parser ):
             self.state = 6
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [turtleParser.T__0, turtleParser.T__1, turtleParser.T__2, turtleParser.T__3, turtleParser.T__4]:
+            if token in [turtleParser.T__0, turtleParser.T__1, turtleParser.T__2, turtleParser.T__3, turtleParser.T__4, turtleParser.T__5, turtleParser.T__6]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 4
                 self.expr()
@@ -213,15 +218,41 @@ class turtleParser ( Parser ):
                 return visitor.visitChildren(self)
 
 
+    class RemovepenContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a turtleParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterRemovepen" ):
+                listener.enterRemovepen(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitRemovepen" ):
+                listener.exitRemovepen(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitRemovepen" ):
+                return visitor.visitRemovepen(self)
+            else:
+                return visitor.visitChildren(self)
+
+
     class DrawLineContext(ExprContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a turtleParser.ExprContext
             super().__init__(parser)
-            self.whereto = None # Token
+            self.x_cord = None # Token
+            self.y_cord = None # Token
             self.copyFrom(ctx)
 
-        def NUMBER(self):
-            return self.getToken(turtleParser.NUMBER, 0)
+        def NUMBER(self, i:int=None):
+            if i is None:
+                return self.getTokens(turtleParser.NUMBER)
+            else:
+                return self.getToken(turtleParser.NUMBER, i)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterDrawLine" ):
@@ -267,13 +298,35 @@ class turtleParser ( Parser ):
                 return visitor.visitChildren(self)
 
 
+    class AddpenContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a turtleParser.ExprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAddpen" ):
+                listener.enterAddpen(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAddpen" ):
+                listener.exitAddpen(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAddpen" ):
+                return visitor.visitAddpen(self)
+            else:
+                return visitor.visitChildren(self)
+
+
 
     def expr(self):
 
         localctx = turtleParser.ExprContext(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_expr)
         try:
-            self.state = 19
+            self.state = 22
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [turtleParser.T__0]:
@@ -282,40 +335,54 @@ class turtleParser ( Parser ):
                 self.state = 8
                 self.match(turtleParser.T__0)
                 self.state = 9
-                localctx.whereto = self.match(turtleParser.NUMBER)
+                localctx.x_cord = self.match(turtleParser.NUMBER)
+                self.state = 10
+                localctx.y_cord = self.match(turtleParser.NUMBER)
                 pass
             elif token in [turtleParser.T__1]:
                 localctx = turtleParser.DrawCircleContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 10
-                self.match(turtleParser.T__1)
                 self.state = 11
-                localctx.radius = self.match(turtleParser.NUMBER)
+                self.match(turtleParser.T__1)
                 self.state = 12
+                localctx.radius = self.match(turtleParser.NUMBER)
+                self.state = 13
                 localctx.extent = self.match(turtleParser.NUMBER)
                 pass
             elif token in [turtleParser.T__2]:
                 localctx = turtleParser.ReturnHomeContext(self, localctx)
                 self.enterOuterAlt(localctx, 3)
-                self.state = 13
+                self.state = 14
                 self.match(turtleParser.T__2)
                 pass
             elif token in [turtleParser.T__3]:
-                localctx = turtleParser.RotateContext(self, localctx)
+                localctx = turtleParser.RemovepenContext(self, localctx)
                 self.enterOuterAlt(localctx, 4)
-                self.state = 14
-                self.match(turtleParser.T__3)
                 self.state = 15
-                localctx.clock = self.match(turtleParser.NUMBER)
+                self.match(turtleParser.T__3)
                 pass
             elif token in [turtleParser.T__4]:
-                localctx = turtleParser.PrintValuesContext(self, localctx)
+                localctx = turtleParser.AddpenContext(self, localctx)
                 self.enterOuterAlt(localctx, 5)
                 self.state = 16
                 self.match(turtleParser.T__4)
+                pass
+            elif token in [turtleParser.T__5]:
+                localctx = turtleParser.RotateContext(self, localctx)
+                self.enterOuterAlt(localctx, 6)
                 self.state = 17
-                localctx.x_cord = self.match(turtleParser.NUMBER)
+                self.match(turtleParser.T__5)
                 self.state = 18
+                localctx.clock = self.match(turtleParser.NUMBER)
+                pass
+            elif token in [turtleParser.T__6]:
+                localctx = turtleParser.PrintValuesContext(self, localctx)
+                self.enterOuterAlt(localctx, 7)
+                self.state = 19
+                self.match(turtleParser.T__6)
+                self.state = 20
+                localctx.x_cord = self.match(turtleParser.NUMBER)
+                self.state = 21
                 localctx.y_cord = self.match(turtleParser.NUMBER)
                 pass
             else:

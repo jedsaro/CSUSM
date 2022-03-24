@@ -4,11 +4,13 @@ start : expr | <EOF> ;
 
 expr    
 
-    : 'G01' whereto=NUMBER                 #drawLine    
-    | 'G02' radius=NUMBER extent=NUMBER    #drawCircle
-    | 'G28'                                #returnHome
-    | 'G68'   clock=NUMBER                 #rotate
-    | 'print' x_cord=NUMBER y_cord=NUMBER  #printValues 
+    : 'G01'   x_cord=NUMBER  y_cord=NUMBER    #drawLine    
+    | 'G02'   radius=NUMBER extent=NUMBER     #drawCircle
+    | 'G28'                                   #returnHome
+    | 'M05'                                   #removepen
+    | 'M03'                                   #addpen
+    | 'G68'   clock=NUMBER                    #rotate
+    | 'print' x_cord=NUMBER y_cord=NUMBER     #printValues 
     ;
 
 NUMBER : ('0' .. '9') + ('.' ('0' .. '9') +)?;
