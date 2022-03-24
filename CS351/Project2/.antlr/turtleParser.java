@@ -16,7 +16,7 @@ public class turtleParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, NUMBER=5, WS=6;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, NUMBER=6, WS=7;
 	public static final int
 		RULE_start = 0, RULE_expr = 1;
 	private static String[] makeRuleNames() {
@@ -28,13 +28,13 @@ public class turtleParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'G01'", "'G02'", "'G28'", "'print'"
+			null, "'G01'", "'G02'", "'G28'", "'G68'", "'print'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, "NUMBER", "WS"
+			null, null, null, null, null, null, "NUMBER", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -109,6 +109,7 @@ public class turtleParser extends Parser {
 			case T__1:
 			case T__2:
 			case T__3:
+			case T__4:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(4);
@@ -149,6 +150,11 @@ public class turtleParser extends Parser {
 	public static class ReturnHomeContext extends ExprContext {
 		public ReturnHomeContext(ExprContext ctx) { copyFrom(ctx); }
 	}
+	public static class RotateContext extends ExprContext {
+		public Token clock;
+		public TerminalNode NUMBER() { return getToken(turtleParser.NUMBER, 0); }
+		public RotateContext(ExprContext ctx) { copyFrom(ctx); }
+	}
 	public static class DrawCircleContext extends ExprContext {
 		public Token radius;
 		public Token extent;
@@ -159,13 +165,8 @@ public class turtleParser extends Parser {
 		public DrawCircleContext(ExprContext ctx) { copyFrom(ctx); }
 	}
 	public static class DrawLineContext extends ExprContext {
-		public Token x_cord;
-		public Token y_cord;
-		public Token direction;
-		public List<TerminalNode> NUMBER() { return getTokens(turtleParser.NUMBER); }
-		public TerminalNode NUMBER(int i) {
-			return getToken(turtleParser.NUMBER, i);
-		}
+		public Token whereto;
+		public TerminalNode NUMBER() { return getToken(turtleParser.NUMBER, 0); }
 		public DrawLineContext(ExprContext ctx) { copyFrom(ctx); }
 	}
 	public static class PrintValuesContext extends ExprContext {
@@ -192,22 +193,18 @@ public class turtleParser extends Parser {
 				setState(8);
 				match(T__0);
 				setState(9);
-				((DrawLineContext)_localctx).x_cord = match(NUMBER);
-				setState(10);
-				((DrawLineContext)_localctx).y_cord = match(NUMBER);
-				setState(11);
-				((DrawLineContext)_localctx).direction = match(NUMBER);
+				((DrawLineContext)_localctx).whereto = match(NUMBER);
 				}
 				break;
 			case T__1:
 				_localctx = new DrawCircleContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(12);
+				setState(10);
 				match(T__1);
-				setState(13);
+				setState(11);
 				((DrawCircleContext)_localctx).radius = match(NUMBER);
-				setState(14);
+				setState(12);
 				((DrawCircleContext)_localctx).extent = match(NUMBER);
 				}
 				break;
@@ -215,16 +212,26 @@ public class turtleParser extends Parser {
 				_localctx = new ReturnHomeContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(15);
+				setState(13);
 				match(T__2);
 				}
 				break;
 			case T__3:
-				_localctx = new PrintValuesContext(_localctx);
+				_localctx = new RotateContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(16);
+				setState(14);
 				match(T__3);
+				setState(15);
+				((RotateContext)_localctx).clock = match(NUMBER);
+				}
+				break;
+			case T__4:
+				_localctx = new PrintValuesContext(_localctx);
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(16);
+				match(T__4);
 				setState(17);
 				((PrintValuesContext)_localctx).x_cord = match(NUMBER);
 				setState(18);
@@ -247,13 +254,14 @@ public class turtleParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\b\30\4\2\t\2\4\3"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\t\30\4\2\t\2\4\3"+
 		"\t\3\3\2\3\2\5\2\t\n\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3"+
-		"\26\n\3\3\3\2\2\4\2\4\2\2\2\31\2\b\3\2\2\2\4\25\3\2\2\2\6\t\5\4\3\2\7"+
-		"\t\3\2\2\2\b\6\3\2\2\2\b\7\3\2\2\2\t\3\3\2\2\2\n\13\7\3\2\2\13\f\7\7\2"+
-		"\2\f\r\7\7\2\2\r\26\7\7\2\2\16\17\7\4\2\2\17\20\7\7\2\2\20\26\7\7\2\2"+
-		"\21\26\7\5\2\2\22\23\7\6\2\2\23\24\7\7\2\2\24\26\7\7\2\2\25\n\3\2\2\2"+
-		"\25\16\3\2\2\2\25\21\3\2\2\2\25\22\3\2\2\2\26\5\3\2\2\2\4\b\25";
+		"\26\n\3\3\3\2\2\4\2\4\2\2\2\32\2\b\3\2\2\2\4\25\3\2\2\2\6\t\5\4\3\2\7"+
+		"\t\3\2\2\2\b\6\3\2\2\2\b\7\3\2\2\2\t\3\3\2\2\2\n\13\7\3\2\2\13\26\7\b"+
+		"\2\2\f\r\7\4\2\2\r\16\7\b\2\2\16\26\7\b\2\2\17\26\7\5\2\2\20\21\7\6\2"+
+		"\2\21\26\7\b\2\2\22\23\7\7\2\2\23\24\7\b\2\2\24\26\7\b\2\2\25\n\3\2\2"+
+		"\2\25\f\3\2\2\2\25\17\3\2\2\2\25\20\3\2\2\2\25\22\3\2\2\2\26\5\3\2\2\2"+
+		"\4\b\25";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

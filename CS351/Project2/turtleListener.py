@@ -44,6 +44,15 @@ class turtleListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by turtleParser#rotate.
+    def enterRotate(self, ctx:turtleParser.RotateContext):
+        pass
+
+    # Exit a parse tree produced by turtleParser#rotate.
+    def exitRotate(self, ctx:turtleParser.RotateContext):
+        pass
+
+
     # Enter a parse tree produced by turtleParser#printValues.
     def enterPrintValues(self, ctx:turtleParser.PrintValuesContext):
         pass
