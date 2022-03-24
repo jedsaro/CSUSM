@@ -21,7 +21,7 @@ screen.bgcolor('black')
 screen.screensize(500,500)
 tutu.shape('turtle')
 tutu.pencolor('white')
-tutu.speed(7)
+tutu.speed(5)
 tutu.pensize(2);
 
 
