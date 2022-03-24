@@ -10,11 +10,12 @@ else:
 
 import turtle
 from turtle import Screen
+import random as random
 
 tutu = turtle.Turtle()
 screen = Screen()
 
-#GUI Settings==
+#GUI Settings---------------------------
 
 screen.bgcolor('black')
 screen.screensize(500,500)
@@ -23,59 +24,62 @@ tutu.pencolor('white')
 tutu.speed(7)
 tutu.pensize(2);
 
+
+
 class turtleVisitor(ParseTreeVisitor):
+  
+  # Visit a parse tree produced by turtleParser#start.
+  def visitStart(self, ctx:turtleParser.StartContext):
+    return self.visitChildren(ctx)
 
-    # Visit a parse tree produced by turtleParser#start.
-    def visitStart(self, ctx:turtleParser.StartContext):
-        return self.visitChildren(ctx)
 
-
-    # Visit a parse tree produced by turtleParser#drawLine.
-    def visitDrawLine(self, ctx:turtleParser.DrawLineContext):
+  # Visit a parse tree produced by turtleParser#drawLine.
+  def visitDrawLine(self, ctx:turtleParser.DrawLineContext):
+    
+    tutu.pencolor()
+    tutu.pendown()
       
-      tutu.pendown()
-      
-      target = int(ctx.whereto.text)
-      cursor_position    = tutu.pos();
+    target = int(ctx.whereto.text)
+    cursor_position = tutu.pos();
 
-      tutu.forward(target)
+    tutu.forward(target)
 
     
-      return self.visitChildren(ctx)
+    return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by turtleParser#drawCircle.
-    def visitDrawCircle(self, ctx:turtleParser.DrawCircleContext):
+  # Visit a parse tree produced by turtleParser#drawCircle.
+  def visitDrawCircle(self, ctx:turtleParser.DrawCircleContext):
       
-      radius = int(ctx.radius.text)
-      extent = int(ctx.extent.text)
+    radius = int(ctx.radius.text)
+    extent = int(ctx.extent.text)
         
-      tutu.circle(radius,extent)
+    tutu.circle(radius,extent)
 
-      return self.visitChildren(ctx)
+    return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by turtleParser#returnHome.
-    def visitReturnHome(self, ctx:turtleParser.ReturnHomeContext):
+  # Visit a parse tree produced by turtleParser#returnHome.
+  def visitReturnHome(self, ctx:turtleParser.ReturnHomeContext):
       
-      tutu.penup()
-      tutu.home()
+    tutu.penup()
+    tutu.home()
 
-      return self.visitChildren(ctx)
+    return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by turtleParser#rotate.
-    def visitRotate(self, ctx:turtleParser.RotateContext):
+  # Visit a parse tree produced by turtleParser#rotate.
+  def visitRotate(self, ctx:turtleParser.RotateContext):
     
-      clock = int(ctx.clock.text)
-      tutu.lt(clock)
+    clock = int(ctx.clock.text)
+    tutu.lt(clock)
       
-      return self.visitChildren(ctx)
+    return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by turtleParser#printValues.
-    def visitPrintValues(self, ctx:turtleParser.PrintValuesContext):
-      return self.visitChildren(ctx)
+  # Visit a parse tree produced by turtleParser#printValues.
+  def visitPrintValues(self, ctx:turtleParser.PrintValuesContext):
+    return self.visitChildren(ctx)
 
 
 del turtleParser
