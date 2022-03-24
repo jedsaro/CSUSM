@@ -5,18 +5,17 @@ from turtleVisitor import turtleVisitor
 import time
 
 def main():
-    lexer = turtleLexer (FileStream("turtle_test.txt"))
-    token_stream = CommonTokenStream(lexer)
-    parser = turtleParser(token_stream)
-    visitor = turtleVisitor()
-   
-    while True: 
-        tree = parser.start()
-        if tree.expr() == None:
-          break
-        print(tree.toStringTree(recog=parser))
-        visitor.visit(tree)
-
+  lexer = turtleLexer (FileStream("turtle_test.txt"))
+  token_stream = CommonTokenStream(lexer)
+  parser = turtleParser(token_stream)
+  visitor = turtleVisitor()
+  
+  while True: 
+    tree = parser.start()
+    if tree.expr() == None:
+      break
+    print(tree.toStringTree(recog=parser))
+    visitor.visit(tree)
     time.sleep(1)
 
 if __name__ == '__main__':

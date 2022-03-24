@@ -147,21 +147,21 @@ public class turtleParser extends Parser {
 		}
 	}
 	public static class ReturnHomeContext extends ExprContext {
-		public Token x_cord;
-		public List<TerminalNode> NUMBER() { return getTokens(turtleParser.NUMBER); }
-		public TerminalNode NUMBER(int i) {
-			return getToken(turtleParser.NUMBER, i);
-		}
 		public ReturnHomeContext(ExprContext ctx) { copyFrom(ctx); }
 	}
 	public static class DrawCircleContext extends ExprContext {
 		public Token radius;
-		public TerminalNode NUMBER() { return getToken(turtleParser.NUMBER, 0); }
+		public Token extent;
+		public List<TerminalNode> NUMBER() { return getTokens(turtleParser.NUMBER); }
+		public TerminalNode NUMBER(int i) {
+			return getToken(turtleParser.NUMBER, i);
+		}
 		public DrawCircleContext(ExprContext ctx) { copyFrom(ctx); }
 	}
 	public static class DrawLineContext extends ExprContext {
 		public Token x_cord;
 		public Token y_cord;
+		public Token direction;
 		public List<TerminalNode> NUMBER() { return getTokens(turtleParser.NUMBER); }
 		public TerminalNode NUMBER(int i) {
 			return getToken(turtleParser.NUMBER, i);
@@ -195,28 +195,28 @@ public class turtleParser extends Parser {
 				((DrawLineContext)_localctx).x_cord = match(NUMBER);
 				setState(10);
 				((DrawLineContext)_localctx).y_cord = match(NUMBER);
+				setState(11);
+				((DrawLineContext)_localctx).direction = match(NUMBER);
 				}
 				break;
 			case T__1:
 				_localctx = new DrawCircleContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(11);
-				match(T__1);
 				setState(12);
+				match(T__1);
+				setState(13);
 				((DrawCircleContext)_localctx).radius = match(NUMBER);
+				setState(14);
+				((DrawCircleContext)_localctx).extent = match(NUMBER);
 				}
 				break;
 			case T__2:
 				_localctx = new ReturnHomeContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(13);
-				match(T__2);
-				setState(14);
-				((ReturnHomeContext)_localctx).x_cord = match(NUMBER);
 				setState(15);
-				((ReturnHomeContext)_localctx).x_cord = match(NUMBER);
+				match(T__2);
 				}
 				break;
 			case T__3:
@@ -251,9 +251,9 @@ public class turtleParser extends Parser {
 		"\t\3\3\2\3\2\5\2\t\n\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3"+
 		"\26\n\3\3\3\2\2\4\2\4\2\2\2\31\2\b\3\2\2\2\4\25\3\2\2\2\6\t\5\4\3\2\7"+
 		"\t\3\2\2\2\b\6\3\2\2\2\b\7\3\2\2\2\t\3\3\2\2\2\n\13\7\3\2\2\13\f\7\7\2"+
-		"\2\f\26\7\7\2\2\r\16\7\4\2\2\16\26\7\7\2\2\17\20\7\5\2\2\20\21\7\7\2\2"+
-		"\21\26\7\7\2\2\22\23\7\6\2\2\23\24\7\7\2\2\24\26\7\7\2\2\25\n\3\2\2\2"+
-		"\25\r\3\2\2\2\25\17\3\2\2\2\25\22\3\2\2\2\26\5\3\2\2\2\4\b\25";
+		"\2\f\r\7\7\2\2\r\26\7\7\2\2\16\17\7\4\2\2\17\20\7\7\2\2\20\26\7\7\2\2"+
+		"\21\26\7\5\2\2\22\23\7\6\2\2\23\24\7\7\2\2\24\26\7\7\2\2\25\n\3\2\2\2"+
+		"\25\16\3\2\2\2\25\21\3\2\2\2\25\22\3\2\2\2\26\5\3\2\2\2\4\b\25";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

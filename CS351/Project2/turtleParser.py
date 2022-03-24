@@ -16,10 +16,10 @@ def serializedATN():
         buf.write("\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\26\n\3\3\3\2\2\4\2\4")
         buf.write("\2\2\2\31\2\b\3\2\2\2\4\25\3\2\2\2\6\t\5\4\3\2\7\t\3\2")
         buf.write("\2\2\b\6\3\2\2\2\b\7\3\2\2\2\t\3\3\2\2\2\n\13\7\3\2\2")
-        buf.write("\13\f\7\7\2\2\f\26\7\7\2\2\r\16\7\4\2\2\16\26\7\7\2\2")
-        buf.write("\17\20\7\5\2\2\20\21\7\7\2\2\21\26\7\7\2\2\22\23\7\6\2")
-        buf.write("\2\23\24\7\7\2\2\24\26\7\7\2\2\25\n\3\2\2\2\25\r\3\2\2")
-        buf.write("\2\25\17\3\2\2\2\25\22\3\2\2\2\26\5\3\2\2\2\4\b\25")
+        buf.write("\13\f\7\7\2\2\f\r\7\7\2\2\r\26\7\7\2\2\16\17\7\4\2\2\17")
+        buf.write("\20\7\7\2\2\20\26\7\7\2\2\21\26\7\5\2\2\22\23\7\6\2\2")
+        buf.write("\23\24\7\7\2\2\24\26\7\7\2\2\25\n\3\2\2\2\25\16\3\2\2")
+        buf.write("\2\25\21\3\2\2\2\25\22\3\2\2\2\26\5\3\2\2\2\4\b\25")
         return buf.getvalue()
 
 
@@ -139,14 +139,8 @@ class turtleParser ( Parser ):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a turtleParser.ExprContext
             super().__init__(parser)
-            self.x_cord = None # Token
             self.copyFrom(ctx)
 
-        def NUMBER(self, i:int=None):
-            if i is None:
-                return self.getTokens(turtleParser.NUMBER)
-            else:
-                return self.getToken(turtleParser.NUMBER, i)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterReturnHome" ):
@@ -168,10 +162,14 @@ class turtleParser ( Parser ):
         def __init__(self, parser, ctx:ParserRuleContext): # actually a turtleParser.ExprContext
             super().__init__(parser)
             self.radius = None # Token
+            self.extent = None # Token
             self.copyFrom(ctx)
 
-        def NUMBER(self):
-            return self.getToken(turtleParser.NUMBER, 0)
+        def NUMBER(self, i:int=None):
+            if i is None:
+                return self.getTokens(turtleParser.NUMBER)
+            else:
+                return self.getToken(turtleParser.NUMBER, i)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterDrawCircle" ):
@@ -194,6 +192,7 @@ class turtleParser ( Parser ):
             super().__init__(parser)
             self.x_cord = None # Token
             self.y_cord = None # Token
+            self.direction = None # Token
             self.copyFrom(ctx)
 
         def NUMBER(self, i:int=None):
@@ -264,24 +263,24 @@ class turtleParser ( Parser ):
                 localctx.x_cord = self.match(turtleParser.NUMBER)
                 self.state = 10
                 localctx.y_cord = self.match(turtleParser.NUMBER)
+                self.state = 11
+                localctx.direction = self.match(turtleParser.NUMBER)
                 pass
             elif token in [turtleParser.T__1]:
                 localctx = turtleParser.DrawCircleContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 11
-                self.match(turtleParser.T__1)
                 self.state = 12
+                self.match(turtleParser.T__1)
+                self.state = 13
                 localctx.radius = self.match(turtleParser.NUMBER)
+                self.state = 14
+                localctx.extent = self.match(turtleParser.NUMBER)
                 pass
             elif token in [turtleParser.T__2]:
                 localctx = turtleParser.ReturnHomeContext(self, localctx)
                 self.enterOuterAlt(localctx, 3)
-                self.state = 13
-                self.match(turtleParser.T__2)
-                self.state = 14
-                localctx.x_cord = self.match(turtleParser.NUMBER)
                 self.state = 15
-                localctx.x_cord = self.match(turtleParser.NUMBER)
+                self.match(turtleParser.T__2)
                 pass
             elif token in [turtleParser.T__3]:
                 localctx = turtleParser.PrintValuesContext(self, localctx)
