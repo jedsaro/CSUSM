@@ -15,6 +15,18 @@ import random as random
 tutu = turtle.Turtle()
 screen = Screen()
 
+""" def f(x):
+    match (x):
+      case 0:
+        return 'blue'
+      case 1:
+          return 'white'
+      case 2:
+        return 'red'
+      case _:        
+          return 0
+ """
+
 #GUI Settings---------------------------
 
 screen.bgcolor('black')
