@@ -1,50 +1,20 @@
-import turtle
+import turtle as t
+from turtle import Screen
+import random
 
-file = open('testing.txt', 'a')
+screen = Screen()
 
-# initialise turtle instance
-stars = turtle.Turtle()
-  
-# increases the speed of turtle
-stars.speed(10)
-  
-# to change the background color
-stars.getscreen().bgcolor("black")
-stars.color("red")
-  
-# stop drawing
-stars.penup()
-file.write("M05\n")
+screen.bgcolor('black')
+screen.screensize(500,500)
 
-  
-# move the turtle
-stars.goto((-200, 50))
-file.write("G01 -200, 50\n")
-  
-# start drawing
-stars.pendown()
-file.write("M03\n")
+file = open("turtle_test.txt", "a")
 
+t.colormode(255)
+t.speed(0)
+t.pensize(1)
 
-# function to draw stars
-def star(turtle, size):
-    if size <= 10:
-        return
-    else:
-        for i in range(5):
-            # moving turtle forward
-            turtle.forward(size)
-            file.write(f"G01 {turtle.xcor()} {turtle.ycor()}\n")
-    
-            star(turtle, size/3)
-  
-            # moving turtle left
-            turtle.left(216)
-            file.write("G68 216\n")
-  
-  
-# calling the star function
-star(stars, 360)
-
-turtle.done()
-
+for i in range (120) :
+    t.circle(100)
+    file.write("G02 100 360\n")
+    t.right(3)
+    file.write("G68 3\n")
