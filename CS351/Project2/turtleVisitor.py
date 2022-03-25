@@ -7,10 +7,10 @@ else:
 
 # This class defines a complete generic visitor for a parse tree produced by turtleParser.
 
-import random, math
+import random, turtle, math
 from turtle import Screen
-import turtle as tutu
 
+tutu = turtle.Turtle()
 screen = Screen()
 
 #GUI Settings---------------------------
@@ -20,6 +20,7 @@ screen.screensize(500,500)
 tutu.shape('turtle')
 tutu.speed(10)
 tutu.pensize(2)
+tutu.pencolor('white')
 class turtleVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by turtleParser#start.
@@ -29,26 +30,17 @@ class turtleVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by turtleParser#drawLine.
     def visitDrawLine(self, ctx:turtleParser.DrawLineContext): #G01
+      
       xcord = float(ctx.x_cord.text)
       ycord = float(ctx.x_cord.text)
       
-      c = math.hypot(xcord,ycord)
-      
-      tutu.forward(c)
+      tutu.goto(xcord,ycord)
       
       return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by turtleParser#drawCircle.
     def visitDrawCircle(self, ctx:turtleParser.DrawCircleContext): #G02
-      
-      tutu.colormode(255)
-      
-      R=random.randint(0,255)
-      G=random.randint(0,255)
-      B=random.randint(0,255)
-      
-      tutu.pencolor(R,G,B)
       
       radius = int(ctx.radius.text)
       extent = int(ctx.extent.text)
