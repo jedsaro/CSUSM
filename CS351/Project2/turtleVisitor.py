@@ -8,7 +8,7 @@ else:
 
 # This class defines a complete generic visitor for a parse tree produced by turtleParser.
 
-import random, turtle, math
+import turtle
 from turtle import Screen
 
 tutu = turtle.Turtle()
@@ -20,6 +20,8 @@ screen.bgcolor('black')
 tutu.speed(10)
 tutu.pensize(2.5)
 tutu.pencolor('white')
+tutu.shape('turtle')
+
 class turtleVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by turtleParser#start.
@@ -95,9 +97,6 @@ class turtleVisitor(ParseTreeVisitor):
         tutu.begin_fill()
       else:
         tutu.end_fill()
-      
-        
-      
       
       return self.visitChildren(ctx)
 
