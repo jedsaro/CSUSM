@@ -10,8 +10,8 @@ expr
     | 'M05'                                   #removepen
     | 'M03'                                   #addpen
     | 'G68'   clock=NUMBER                    #rotate
-    | 'print' x_cord=NUMBER y_cord=NUMBER     #printValues 
+    | 'Z'     logic=NUMBER                    #colorFill
     ;
 
-NUMBER : ('0' .. '9') + ('.' ('0' .. '9') +)?;
+NUMBER : ('-')? ('0' .. '9') + ('.' ('0' .. '9') +)?;
 WS : [ \r\n\t]+ -> skip;

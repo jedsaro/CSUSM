@@ -1,20 +1,40 @@
-import turtle as t
-from turtle import Screen
-import random
+from turtle import *
 
-screen = Screen()
-
-screen.bgcolor('black')
-screen.screensize(500,500)
+import turtle
 
 file = open("turtle_test.txt", "a")
 
-t.colormode(255)
-t.speed(0)
-t.pensize(1)
+tur = turtle.Turtle()
+  
 
-for i in range (120) :
-    t.circle(100)
-    file.write("G02 100 360\n")
-    t.right(3)
-    file.write("G68 3\n")
+tur.speed(6)
+  
+tur.getscreen().bgcolor("black")
+tur.color("cyan")
+
+tur.penup()
+  
+tur.goto((-200, 50))
+  
+
+tur.pendown()
+  
+
+def star(turtle, size):
+    if size <= 10:
+      file.write(
+      return
+    else:
+        for i in range(5):
+            
+
+            turtle.forward(size)
+            
+            star(turtle, size/3)
+  
+
+            turtle.left(216)
+  
+ 
+star(tur, 360)
+turtle.done()

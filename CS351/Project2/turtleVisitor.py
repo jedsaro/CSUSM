@@ -1,3 +1,4 @@
+
 # Generated from turtle.g4 by ANTLR 4.9
 from antlr4 import *
 if __name__ is not None and "." in __name__:
@@ -16,10 +17,8 @@ screen = Screen()
 #GUI Settings---------------------------
 
 screen.bgcolor('black')
-screen.screensize(500,500)
-tutu.shape('turtle')
 tutu.speed(10)
-tutu.pensize(2)
+tutu.pensize(2.5)
 tutu.pencolor('white')
 class turtleVisitor(ParseTreeVisitor):
 
@@ -32,7 +31,10 @@ class turtleVisitor(ParseTreeVisitor):
     def visitDrawLine(self, ctx:turtleParser.DrawLineContext): #G01
       
       xcord = float(ctx.x_cord.text)
-      ycord = float(ctx.x_cord.text)
+      
+      ycord = float(ctx.y_cord.text)
+      
+      print(xcord,ycord)
       
       tutu.goto(xcord,ycord)
       
@@ -82,10 +84,21 @@ class turtleVisitor(ParseTreeVisitor):
       
       return self.visitChildren(ctx)
 
-    # Visit a parse tree produced by turtleParser#printValues.
-    def visitPrintValues(self, ctx:turtleParser.PrintValuesContext):
+    # Visit a parse tree produced by turtleParser#colorFill.
+    def visitColorFill(self, ctx:turtleParser.ColorFillContext):
+      
+      paint = int(ctx.logic.text)
+      
+      tutu.color("red")
+      
+      if (paint == 1):
+        tutu.begin_fill()
+      else:
+        tutu.end_fill()
+      
+        
+      
+      
       return self.visitChildren(ctx)
-
-
 
 del turtleParser

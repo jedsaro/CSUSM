@@ -16,6 +16,8 @@ def main():
       break
     print(tree.toStringTree(recog=parser))
     visitor.visit(tree)
+  
+  time.sleep(5)
 
 if __name__ == '__main__':
     main()

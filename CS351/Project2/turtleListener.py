@@ -71,12 +71,12 @@ class turtleListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by turtleParser#printValues.
-    def enterPrintValues(self, ctx:turtleParser.PrintValuesContext):
+    # Enter a parse tree produced by turtleParser#colorFill.
+    def enterColorFill(self, ctx:turtleParser.ColorFillContext):
         pass
 
-    # Exit a parse tree produced by turtleParser#printValues.
-    def exitPrintValues(self, ctx:turtleParser.PrintValuesContext):
+    # Exit a parse tree produced by turtleParser#colorFill.
+    def exitColorFill(self, ctx:turtleParser.ColorFillContext):
         pass
 
 

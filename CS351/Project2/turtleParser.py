@@ -12,16 +12,16 @@ else:
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13")
-        buf.write("\33\4\2\t\2\4\3\t\3\3\2\3\2\5\2\t\n\2\3\3\3\3\3\3\3\3")
-        buf.write("\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\31\n\3\3")
-        buf.write("\3\2\2\4\2\4\2\2\2\37\2\b\3\2\2\2\4\30\3\2\2\2\6\t\5\4")
-        buf.write("\3\2\7\t\3\2\2\2\b\6\3\2\2\2\b\7\3\2\2\2\t\3\3\2\2\2\n")
-        buf.write("\13\7\3\2\2\13\f\7\n\2\2\f\31\7\n\2\2\r\16\7\4\2\2\16")
-        buf.write("\17\7\n\2\2\17\31\7\n\2\2\20\31\7\5\2\2\21\31\7\6\2\2")
-        buf.write("\22\31\7\7\2\2\23\24\7\b\2\2\24\31\7\n\2\2\25\26\7\t\2")
-        buf.write("\2\26\27\7\n\2\2\27\31\7\n\2\2\30\n\3\2\2\2\30\r\3\2\2")
-        buf.write("\2\30\20\3\2\2\2\30\21\3\2\2\2\30\22\3\2\2\2\30\23\3\2")
-        buf.write("\2\2\30\25\3\2\2\2\31\5\3\2\2\2\4\b\30")
+        buf.write("\32\4\2\t\2\4\3\t\3\3\2\3\2\5\2\t\n\2\3\3\3\3\3\3\3\3")
+        buf.write("\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\30\n\3\3\3\2")
+        buf.write("\2\4\2\4\2\2\2\36\2\b\3\2\2\2\4\27\3\2\2\2\6\t\5\4\3\2")
+        buf.write("\7\t\3\2\2\2\b\6\3\2\2\2\b\7\3\2\2\2\t\3\3\2\2\2\n\13")
+        buf.write("\7\3\2\2\13\f\7\n\2\2\f\30\7\n\2\2\r\16\7\4\2\2\16\17")
+        buf.write("\7\n\2\2\17\30\7\n\2\2\20\30\7\5\2\2\21\30\7\6\2\2\22")
+        buf.write("\30\7\7\2\2\23\24\7\b\2\2\24\30\7\n\2\2\25\26\7\t\2\2")
+        buf.write("\26\30\7\n\2\2\27\n\3\2\2\2\27\r\3\2\2\2\27\20\3\2\2\2")
+        buf.write("\27\21\3\2\2\2\27\22\3\2\2\2\27\23\3\2\2\2\27\25\3\2\2")
+        buf.write("\2\30\5\3\2\2\2\4\b\27")
         return buf.getvalue()
 
 
@@ -36,7 +36,7 @@ class turtleParser ( Parser ):
     sharedContextCache = PredictionContextCache()
 
     literalNames = [ "<INVALID>", "'G01'", "'G02'", "'G28'", "'M05'", "'M03'", 
-                     "'G68'", "'print'" ]
+                     "'G68'", "'Z'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
@@ -240,6 +240,31 @@ class turtleParser ( Parser ):
                 return visitor.visitChildren(self)
 
 
+    class ColorFillContext(ExprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a turtleParser.ExprContext
+            super().__init__(parser)
+            self.logic = None # Token
+            self.copyFrom(ctx)
+
+        def NUMBER(self):
+            return self.getToken(turtleParser.NUMBER, 0)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterColorFill" ):
+                listener.enterColorFill(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitColorFill" ):
+                listener.exitColorFill(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitColorFill" ):
+                return visitor.visitColorFill(self)
+            else:
+                return visitor.visitChildren(self)
+
+
     class DrawLineContext(ExprContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a turtleParser.ExprContext
@@ -265,35 +290,6 @@ class turtleParser ( Parser ):
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitDrawLine" ):
                 return visitor.visitDrawLine(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-    class PrintValuesContext(ExprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a turtleParser.ExprContext
-            super().__init__(parser)
-            self.x_cord = None # Token
-            self.y_cord = None # Token
-            self.copyFrom(ctx)
-
-        def NUMBER(self, i:int=None):
-            if i is None:
-                return self.getTokens(turtleParser.NUMBER)
-            else:
-                return self.getToken(turtleParser.NUMBER, i)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterPrintValues" ):
-                listener.enterPrintValues(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitPrintValues" ):
-                listener.exitPrintValues(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPrintValues" ):
-                return visitor.visitPrintValues(self)
             else:
                 return visitor.visitChildren(self)
 
@@ -326,7 +322,7 @@ class turtleParser ( Parser ):
         localctx = turtleParser.ExprContext(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_expr)
         try:
-            self.state = 22
+            self.state = 21
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [turtleParser.T__0]:
@@ -376,14 +372,12 @@ class turtleParser ( Parser ):
                 localctx.clock = self.match(turtleParser.NUMBER)
                 pass
             elif token in [turtleParser.T__6]:
-                localctx = turtleParser.PrintValuesContext(self, localctx)
+                localctx = turtleParser.ColorFillContext(self, localctx)
                 self.enterOuterAlt(localctx, 7)
                 self.state = 19
                 self.match(turtleParser.T__6)
                 self.state = 20
-                localctx.x_cord = self.match(turtleParser.NUMBER)
-                self.state = 21
-                localctx.y_cord = self.match(turtleParser.NUMBER)
+                localctx.logic = self.match(turtleParser.NUMBER)
                 pass
             else:
                 raise NoViableAltException(self)

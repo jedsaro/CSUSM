@@ -28,7 +28,7 @@ public class turtleParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'G01'", "'G02'", "'G28'", "'M05'", "'M03'", "'G68'", "'print'"
+			null, "'G01'", "'G02'", "'G28'", "'M05'", "'M03'", "'G68'", "'Z'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -169,6 +169,11 @@ public class turtleParser extends Parser {
 	public static class RemovepenContext extends ExprContext {
 		public RemovepenContext(ExprContext ctx) { copyFrom(ctx); }
 	}
+	public static class ColorFillContext extends ExprContext {
+		public Token logic;
+		public TerminalNode NUMBER() { return getToken(turtleParser.NUMBER, 0); }
+		public ColorFillContext(ExprContext ctx) { copyFrom(ctx); }
+	}
 	public static class DrawLineContext extends ExprContext {
 		public Token x_cord;
 		public Token y_cord;
@@ -178,15 +183,6 @@ public class turtleParser extends Parser {
 		}
 		public DrawLineContext(ExprContext ctx) { copyFrom(ctx); }
 	}
-	public static class PrintValuesContext extends ExprContext {
-		public Token x_cord;
-		public Token y_cord;
-		public List<TerminalNode> NUMBER() { return getTokens(turtleParser.NUMBER); }
-		public TerminalNode NUMBER(int i) {
-			return getToken(turtleParser.NUMBER, i);
-		}
-		public PrintValuesContext(ExprContext ctx) { copyFrom(ctx); }
-	}
 	public static class AddpenContext extends ExprContext {
 		public AddpenContext(ExprContext ctx) { copyFrom(ctx); }
 	}
@@ -195,7 +191,7 @@ public class turtleParser extends Parser {
 		ExprContext _localctx = new ExprContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_expr);
 		try {
-			setState(22);
+			setState(21);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__0:
@@ -257,15 +253,13 @@ public class turtleParser extends Parser {
 				}
 				break;
 			case T__6:
-				_localctx = new PrintValuesContext(_localctx);
+				_localctx = new ColorFillContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
 				setState(19);
 				match(T__6);
 				setState(20);
-				((PrintValuesContext)_localctx).x_cord = match(NUMBER);
-				setState(21);
-				((PrintValuesContext)_localctx).y_cord = match(NUMBER);
+				((ColorFillContext)_localctx).logic = match(NUMBER);
 				}
 				break;
 			default:
@@ -284,15 +278,14 @@ public class turtleParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13\33\4\2\t\2\4\3"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13\32\4\2\t\2\4\3"+
 		"\t\3\3\2\3\2\5\2\t\n\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
-		"\3\3\3\3\5\3\31\n\3\3\3\2\2\4\2\4\2\2\2\37\2\b\3\2\2\2\4\30\3\2\2\2\6"+
-		"\t\5\4\3\2\7\t\3\2\2\2\b\6\3\2\2\2\b\7\3\2\2\2\t\3\3\2\2\2\n\13\7\3\2"+
-		"\2\13\f\7\n\2\2\f\31\7\n\2\2\r\16\7\4\2\2\16\17\7\n\2\2\17\31\7\n\2\2"+
-		"\20\31\7\5\2\2\21\31\7\6\2\2\22\31\7\7\2\2\23\24\7\b\2\2\24\31\7\n\2\2"+
-		"\25\26\7\t\2\2\26\27\7\n\2\2\27\31\7\n\2\2\30\n\3\2\2\2\30\r\3\2\2\2\30"+
-		"\20\3\2\2\2\30\21\3\2\2\2\30\22\3\2\2\2\30\23\3\2\2\2\30\25\3\2\2\2\31"+
-		"\5\3\2\2\2\4\b\30";
+		"\3\3\5\3\30\n\3\3\3\2\2\4\2\4\2\2\2\36\2\b\3\2\2\2\4\27\3\2\2\2\6\t\5"+
+		"\4\3\2\7\t\3\2\2\2\b\6\3\2\2\2\b\7\3\2\2\2\t\3\3\2\2\2\n\13\7\3\2\2\13"+
+		"\f\7\n\2\2\f\30\7\n\2\2\r\16\7\4\2\2\16\17\7\n\2\2\17\30\7\n\2\2\20\30"+
+		"\7\5\2\2\21\30\7\6\2\2\22\30\7\7\2\2\23\24\7\b\2\2\24\30\7\n\2\2\25\26"+
+		"\7\t\2\2\26\30\7\n\2\2\27\n\3\2\2\2\27\r\3\2\2\2\27\20\3\2\2\2\27\21\3"+
+		"\2\2\2\27\22\3\2\2\2\27\23\3\2\2\2\27\25\3\2\2\2\30\5\3\2\2\2\4\b\27";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
