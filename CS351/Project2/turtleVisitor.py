@@ -16,12 +16,6 @@ screen = Screen()
 
 #GUI Settings---------------------------
 
-screen.bgcolor('black')
-tutu.speed(10)
-tutu.pensize(2.5)
-tutu.pencolor('white')
-tutu.shape('turtle')
-
 class turtleVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by turtleParser#start.
@@ -53,15 +47,6 @@ class turtleVisitor(ParseTreeVisitor):
 
       return self.visitChildren(ctx)
 
-    # Visit a parse tree produced by turtleParser#returnHome.
-    def visitReturnHome(self, ctx:turtleParser.ReturnHomeContext): #G28
-      
-      tutu.penup()
-      tutu.home()
-      
-      return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by turtleParser#removepen.
     def visitRemovepen(self, ctx:turtleParser.RemovepenContext): #M05
       
@@ -83,20 +68,6 @@ class turtleVisitor(ParseTreeVisitor):
       
       clock = int(ctx.clock.text)
       tutu.right(clock)
-      
-      return self.visitChildren(ctx)
-
-    # Visit a parse tree produced by turtleParser#colorFill.
-    def visitColorFill(self, ctx:turtleParser.ColorFillContext):
-      
-      paint = int(ctx.logic.text)
-      
-      tutu.color("red")
-      
-      if (paint == 1):
-        tutu.begin_fill()
-      else:
-        tutu.end_fill()
       
       return self.visitChildren(ctx)
 
